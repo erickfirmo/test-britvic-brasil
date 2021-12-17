@@ -17,7 +17,7 @@ class CreateVehiclesTable extends Migration
             $table->id();
             $table->string('model');
             $table->string('brand');
-            $table->date('yead');
+            $table->string('year', 4);
             $table->string('plate');
             $table->timestamps();
         });
