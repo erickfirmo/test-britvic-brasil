@@ -22,7 +22,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicles = $this->vehicle->get();
+        $vehicles = $this->vehicle->orderBy('id', 'desc')->paginate(20);
 
         return view('vehicles.index', compact('vehicles'));
     }
@@ -57,10 +57,10 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('error', $e->getMessage());
+                Session::flash('danger', $e->getMessage());
             }
 
-            Session::flash('error', 'Ocorreu um erro ao criar veículo!');
+            Session::flash('danger', 'Ocorreu um erro ao criar veículo!');
             
             return redirect()->back();
         }
@@ -93,10 +93,10 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('error', $e->getMessage());
+                Session::flash('danger', $e->getMessage());
             }
 
-            Session::flash('error', 'Veículo não encontrado!');
+            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo!');
             
             return redirect()->back();
         }
@@ -125,10 +125,10 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('error', $e->getMessage());
+                Session::flash('danger', $e->getMessage());
             }
 
-            Session::flash('error', 'Veículo não encontrado!');
+            Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do veículo!');
             
             return redirect()->back();
         }
@@ -154,10 +154,10 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('error', $e->getMessage());
+                Session::flash('danger', $e->getMessage());
             }
 
-            Session::flash('error', 'Ocorreu um erro ao remover veículo!');
+            Session::flash('danger', 'Ocorreu um erro ao remover veículo!');
             
             return redirect()->back();
         }
