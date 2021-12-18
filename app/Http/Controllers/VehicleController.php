@@ -130,12 +130,24 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        $vehicle = $this->vehicle->findOrFail($id);
+        try {
+            $vehicle = $this->vehicle->findOrFail($id);
 
-        $vehicle->delete();
+            $vehicle->delete();
 
-        Session::flash('success', 'Veículo removido com sucesso!');
+            Session::flash('success', 'Veículo removido com sucesso!');
 
-        return redirect()->route('vehicles.index');
+            return redirect()->route('vehicles.index');
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('error', $e->getMessage());
+            }
+
+            Session::flash('error', 'Ocorreu um erro ao remover veículo!');
+            
+            return redirect()->back();
+        }
     }
 }
