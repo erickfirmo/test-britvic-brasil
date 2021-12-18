@@ -167,6 +167,24 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $customer = $this->customer->findOrFail($id);
+
+            $customer->delete();
+
+            Session::flash('success', 'Usuário removido com sucesso!');
+
+            return redirect()->route('customers.index');
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao remover veículo:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao remover veículo!');
+            return redirect()->back();
+        }
     }
 }
