@@ -16,4 +16,9 @@ class Customer extends Model
         'document_number',
         'dob'
     ];
+
+    public function reserves()
+    {
+        return $this->hasMany(Reserve::class);
+    }
 }
