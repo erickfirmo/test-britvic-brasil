@@ -3,7 +3,12 @@
 @section('content')
 <div class="container">
 
-    @include('partials.alert')
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            @include('partials.alert')
+        </div>
+    </div>
+
 
     <div class="row justify-content-center">
         <div class="col-md-12">
