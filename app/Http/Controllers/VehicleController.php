@@ -89,6 +89,8 @@ class VehicleController extends Controller
         $vehicle = $this->vehicle->findOrFail($id);
 
         $vehicle->update($data);
+
+        return redirect()->route('vehicles.edit', ['vehicle' => $id]);
     }
 
     /**
