@@ -86,7 +86,7 @@ class VehicleController extends Controller
                 Session::flash('danger', $e->getMessage());
             }
 
-            Session::flash('danger', 'Ocorreu um erro ao criar veículo!');
+            Session::flash('danger', 'Ocorreu um erro ao criar veículo! - '. $e->getMessage());
             
             return redirect()->back();
         }
