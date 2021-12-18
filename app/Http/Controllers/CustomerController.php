@@ -21,15 +21,22 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        /*$data = [
-            'name' => 'NOME',
-            'document_number' => '46588986831',
-            'dob' => '1996-08-18'
-        ];
+        try {
 
-        $response = $this->customer->create($data);
+            $customers = $this->customer->orderBy('id', 'desc')->paginate(20);
 
-        dd($response);*/
+            return view('customers.index', compact('customers'));
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de usuários:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de usuários!');
+            return redirect()->back();
+        }
     }
 
     /**
