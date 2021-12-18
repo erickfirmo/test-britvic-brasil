@@ -17,4 +17,9 @@ class Vehicle extends Model
         'year',
         'plate'
     ];
+
+    public function reserves()
+    {
+        return $this->hasMany(Reserve::class);
+    }
 }
