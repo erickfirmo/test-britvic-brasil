@@ -101,6 +101,10 @@ class VehicleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $vehicle = $this->vehicle->findOrFail($id);
+
+        $vehicle->delete();
+
+        return redirect()->route('vehicles.index');
     }
 }
