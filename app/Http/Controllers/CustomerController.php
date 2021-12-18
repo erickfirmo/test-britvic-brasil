@@ -99,7 +99,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('customers.edit', ['customer' => $id]);
     }
 
     /**
@@ -110,7 +110,21 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $customer = $this->customer->findOrFail($id);
+
+            return view('customers.edit', compact('customer'));
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do usuário:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do usuário!');
+            return redirect()->back();
+        }
     }
 
     /**
