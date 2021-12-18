@@ -33,8 +33,8 @@
                                 <td>{{ $vehicle->year }}</td>
                                 <td>{{ $vehicle->plate }}</td>
                                 <td>
-                                <a href="{{ route('vehicles.edit', $vehicle->id) }}" class="edit btn btn-info btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
-                                <button href="javascript:void(0)" onclick="//submitAction(this)" data-method="DELETE" data-url="{{ route('vehicles.destroy', $vehicle->id) }}" class="delete btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i>&nbsp;Excluir</a>
+                                    <a href="{{ route('vehicles.edit', $vehicle->id) }}" class="edit btn btn-info btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+                                    <button data-bs-target="#removeModal" data-bs-toggle="modal" data-url="{{ route('vehicles.destroy', $vehicle->id) }}" class="delete btn btn-danger btn-sm remove-button"><i class="fas fa-trash-alt"></i>&nbsp;Excluir</a>
                                 </td>
                             </tr>
                         @empty
@@ -50,4 +50,51 @@
         </div>
     </div>
 </div>
+
+@push('components')
+<div class="modal fade" tabindex="-1" id="removeModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tem certeza que deseja excluir esse veículo?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Esta ação não pode ser desfeita!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="remove-confirmation">Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form action="#" method="POST" class="d-none" id="remove-form">
+    @csrf
+    {{ method_field('DELETE') }}
+</form>
+@endpush
+
+@push('scripts')
+<script>
+var removeForm = document.getElementById('remove-form')
+var removeConfirmation = document.getElementById('remove-confirmation');
+
+// set remove form action based on button remove
+document.addEventListener("DOMContentLoaded", function(e) {
+    document.querySelectorAll('.remove-button').forEach(button => {
+        button.addEventListener('click', event => {
+            removeForm.setAttribute('action', button.dataset.url)
+        })
+    })
+})
+
+// submit remove form when confirm in modal
+removeConfirmation.addEventListener('click', event => {
+    removeForm.submit()
+})
+</script>
+@endpush
+
 @endsection
