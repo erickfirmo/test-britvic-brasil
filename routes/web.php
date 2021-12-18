@@ -22,6 +22,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('usuarios', App\Http\Controllers\CustomerController::class, [
+    'parameters' => [
+        'usuarios' => 'user',
+    ],
     'names' => [
         'index' => 'customers.index',
         'create' => 'customers.create',
@@ -34,6 +37,9 @@ Route::resource('usuarios', App\Http\Controllers\CustomerController::class, [
 ]);
 
 Route::resource('veiculos', App\Http\Controllers\VehicleController::class, [
+    'parameters' => [
+        'veiculos' => 'vehicle',
+    ],
     'names' => [
         'index' => 'vehicles.index',
         'create' => 'vehicles.create',
@@ -44,5 +50,3 @@ Route::resource('veiculos', App\Http\Controllers\VehicleController::class, [
         'show' => 'vehicles.show',
     ]
 ]);
-
-
