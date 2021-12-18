@@ -15,4 +15,14 @@ class Reserve extends Model
         'vehicle_id',
         'customer_id'
     ];
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
 }
