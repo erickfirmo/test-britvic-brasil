@@ -31,11 +31,11 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('danger', $e->getMessage());
+                Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de veículos:' . $e->getMessage());
+                return redirect()->back();
             }
 
             Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de veículos!');
-            
             return redirect()->back();
         }
     }
@@ -54,11 +54,11 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('danger', $e->getMessage());
+                Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de veículos:' . $e->getMessage());
+                return redirect()->back();
             }
 
             Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de veículos!');
-            
             return redirect()->back();
         }
     }
@@ -83,11 +83,11 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('danger', $e->getMessage());
+                Session::flash('danger', 'Ocorreu um erro ao criar veículo: '. $e->getMessage());
+                return redirect()->back();
             }
 
-            Session::flash('danger', 'Ocorreu um erro ao criar veículo! - '. $e->getMessage());
-            
+            Session::flash('danger', 'Ocorreu um erro ao criar veículo!');
             return redirect()->back();
         }
     }
@@ -119,11 +119,11 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('danger', $e->getMessage());
+                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo:' . $e->getMessage());
+                return redirect()->back();
             }
 
             Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo!');
-            
             return redirect()->back();
         }
     }
@@ -151,11 +151,11 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('danger', $e->getMessage());
+                Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do veículo:' . $e->getMessage());
+                return redirect()->back();
             }
 
             Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do veículo!');
-            
             return redirect()->back();
         }
     }
@@ -180,11 +180,11 @@ class VehicleController extends Controller
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('danger', $e->getMessage());
+                Session::flash('danger', 'Ocorreu um erro ao remover veículo:' . $e->getMessage());
+                return redirect()->back();
             }
 
             Session::flash('danger', 'Ocorreu um erro ao remover veículo!');
-            
             return redirect()->back();
         }
     }
