@@ -85,9 +85,21 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        $vehicle = $this->vehicle->findOrFail($id);
+        try {
+            $vehicle = $this->vehicle->findOrFail($id);
 
-        return view('vehicles.edit', compact('vehicle'));
+            return view('vehicles.edit', compact('vehicle'));
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('error', $e->getMessage());
+            }
+
+            Session::flash('error', 'Veículo não encontrado!');
+            
+            return redirect()->back();
+        }
     }
 
     /**
