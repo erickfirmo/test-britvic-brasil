@@ -34,7 +34,20 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        return view('vehicles.create');
+        try {
+
+            return view('vehicles.create');
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', $e->getMessage());
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar a página!');
+            
+            return redirect()->back();
+        }
     }
 
     /**
