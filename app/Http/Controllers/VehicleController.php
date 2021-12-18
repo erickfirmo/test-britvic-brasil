@@ -59,7 +59,7 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('vehicles.edit');
+        return redirect()->route('vehicles.edit', ['vehicle' => $id]);
     }
 
     /**
@@ -84,7 +84,11 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $vehicle = $this->vehicle->findOrFail($id);
+
+        $vehicle->update($data);
     }
 
     /**
