@@ -44,7 +44,11 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $vehicle = $this->vehicle->create($data);
+
+        return redirect()->route('vehicles.edit', ['vehicle' => $vehicle->id]);
     }
 
     /**
@@ -67,7 +71,7 @@ class VehicleController extends Controller
     public function edit($id)
     {
         $vehicle = $this->vehicle->findOrFail($id);
-        
+
         return view('vehicles.edit', compact('vehicle'));
     }
 
