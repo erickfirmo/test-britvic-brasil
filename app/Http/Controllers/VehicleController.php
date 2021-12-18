@@ -55,7 +55,7 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('vehicles.edit');
     }
 
     /**
@@ -66,7 +66,7 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
