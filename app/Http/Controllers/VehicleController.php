@@ -60,7 +60,7 @@ class VehicleController extends Controller
                 Session::flash('error', $e->getMessage());
             }
 
-            Session::flash('error', 'Veículo não encontrado!');
+            Session::flash('error', 'Ocorreu um erro ao criar veículo!');
             
             return redirect()->back();
         }
@@ -99,15 +99,27 @@ class VehicleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
+        try {
+            $data = $request->all();
 
-        $vehicle = $this->vehicle->findOrFail($id);
+            $vehicle = $this->vehicle->findOrFail($id);
 
-        $vehicle->update($data);
+            $vehicle->update($data);
 
-        Session::flash('success', 'Veículo atualizado com sucesso!');
+            Session::flash('success', 'Veículo atualizado com sucesso!');
 
-        return redirect()->route('vehicles.edit', ['vehicle' => $id]);
+            return redirect()->route('vehicles.edit', ['vehicle' => $id]);
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('error', $e->getMessage());
+            }
+
+            Session::flash('error', 'Veículo não encontrado!');
+            
+            return redirect()->back();
+        }
     }
 
     /**
