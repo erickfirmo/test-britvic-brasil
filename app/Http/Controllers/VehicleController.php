@@ -66,7 +66,9 @@ class VehicleController extends Controller
      */
     public function edit($id)
     {
+        $vehicle = $this->vehicle->findOrFail($id);
         
+        return view('vehicles.edit', compact('vehicle'));
     }
 
     /**
