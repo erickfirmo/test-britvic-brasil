@@ -46,7 +46,20 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        try {
+
+            return view('customers.create');
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de usuários:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de usuários!');
+            return redirect()->back();
+        }
     }
 
     /**
