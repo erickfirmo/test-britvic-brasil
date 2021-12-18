@@ -45,13 +45,25 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        try {
+            $data = $request->all();
 
-        $vehicle = $this->vehicle->create($data);
+            $vehicle = $this->vehicle->create($data);
 
-        Session::flash('success', 'Veículo criado com sucesso!');
+            Session::flash('success', 'Veículo criado com sucesso!');
 
-        return redirect()->route('vehicles.edit', ['vehicle' => $vehicle->id]);
+            return redirect()->route('vehicles.edit', ['vehicle' => $vehicle->id]);
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('error', $e->getMessage());
+            }
+
+            Session::flash('error', 'Veículo não encontrado!');
+            
+            return redirect()->back();
+        }
     }
 
     /**
