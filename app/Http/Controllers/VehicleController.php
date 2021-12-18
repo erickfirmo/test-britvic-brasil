@@ -22,9 +22,22 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $vehicles = $this->vehicle->orderBy('id', 'desc')->paginate(20);
+        try {
 
-        return view('vehicles.index', compact('vehicles'));
+            $vehicles = $this->vehicle->orderBy('id', 'desc')->paginate(20);
+
+            return view('vehicles.index', compact('vehicles'));
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', $e->getMessage());
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de veículos!');
+            
+            return redirect()->back();
+        }
     }
 
     /**
@@ -44,7 +57,7 @@ class VehicleController extends Controller
                 Session::flash('danger', $e->getMessage());
             }
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar a página!');
+            Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de veículos!');
             
             return redirect()->back();
         }
