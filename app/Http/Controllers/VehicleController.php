@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use Session;
 
 class VehicleController extends Controller
 {
@@ -48,6 +49,8 @@ class VehicleController extends Controller
 
         $vehicle = $this->vehicle->create($data);
 
+        Session::flash('success', 'Veículo criado com sucesso!');
+
         return redirect()->route('vehicles.edit', ['vehicle' => $vehicle->id]);
     }
 
@@ -90,6 +93,8 @@ class VehicleController extends Controller
 
         $vehicle->update($data);
 
+        Session::flash('success', 'Veículo atualizado com sucesso!');
+
         return redirect()->route('vehicles.edit', ['vehicle' => $id]);
     }
 
@@ -104,6 +109,8 @@ class VehicleController extends Controller
         $vehicle = $this->vehicle->findOrFail($id);
 
         $vehicle->delete();
+
+        Session::flash('success', 'Veículo removido com sucesso!');
 
         return redirect()->route('vehicles.index');
     }
