@@ -21,22 +21,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        /*$data = [
-            'model' => 'Uno',
-            'brand' => 'Fiat',
-            'year' => '1988',
-            'plate' => "ABC1234"
-        ];
-        
-        $data = [
-            'name' => 'NOME',
-            'document_number' => '46588986831',
-            'dob' => '1996-08-18'
-        ];
+        $vehicles = $this->vehicle->get();
 
-        $response = $this->vehicle->create($data);
-
-        dd($response);*/
+        return view('vehicles.index', compact('vehicles'));
     }
 
     /**
