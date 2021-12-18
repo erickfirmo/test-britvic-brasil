@@ -70,7 +70,25 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->all();
+
+            $customer = $this->customer->create($data);
+
+            Session::flash('success', 'Veículo criado com sucesso!');
+
+            return redirect()->route('customers.edit', ['customer' => $customer->id]);
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao criar usuário: '. $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao criar usuário!');
+            return redirect()->back();
+        }
     }
 
     /**
