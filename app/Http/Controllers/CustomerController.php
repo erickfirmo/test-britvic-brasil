@@ -75,7 +75,7 @@ class CustomerController extends Controller
 
             $customer = $this->customer->create($data);
 
-            Session::flash('success', 'Veículo criado com sucesso!');
+            Session::flash('success', 'Usuário criado com sucesso!');
 
             return redirect()->route('customers.edit', ['customer' => $customer->id]);
 
@@ -136,7 +136,27 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+
+            $customer = $this->customer->findOrFail($id);
+
+            $customer->update($data);
+
+            Session::flash('success', 'Usuário atualizado com sucesso!');
+
+            return redirect()->route('customers.edit', ['customer' => $id]);
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do usuário:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do usuário!');
+            return redirect()->back();
+        }
     }
 
     /**
