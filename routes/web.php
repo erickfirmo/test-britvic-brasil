@@ -32,3 +32,17 @@ Route::resource('usuarios', App\Http\Controllers\CustomerController::class, [
         'show' => 'customers.show',
     ]
 ]);
+
+Route::resource('veiculos', App\Http\Controllers\VehicleController::class, [
+    'names' => [
+        'index' => 'vehicles.index',
+        'create' => 'vehicles.create',
+        'edit' => 'vehicles.edit',
+        'update' => 'vehicles.update',
+        'destroy' => 'vehicles.destroy',
+        'store' => 'vehicles.store',
+        'show' => 'vehicles.show',
+    ]
+]);
+
+
