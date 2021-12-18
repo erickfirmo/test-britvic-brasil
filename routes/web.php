@@ -20,3 +20,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('usuarios', App\Http\Controllers\CustomerController::class, [
+    'names' => [
+        'index' => 'customers.index',
+        'create' => 'customers.create',
+        'edit' => 'customers.edit',
+        'update' => 'customers.update',
+        'destroy' => 'customers.destroy',
+        'store' => 'customers.store',
+        'show' => 'customers.show',
+    ]
+]);
