@@ -168,6 +168,24 @@ class ReserveController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $reserve = $this->reserve->findOrFail($id);
+
+            $reserve->delete();
+
+            Session::flash('success', 'Reserva removido com sucesso!');
+
+            return redirect()->route('reserves.index');
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao remover reserva:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao remover reserva!');
+            return redirect()->back();
+        }
     }
 }
