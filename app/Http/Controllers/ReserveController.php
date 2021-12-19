@@ -15,6 +15,8 @@ class ReserveController extends Controller
 
     public function __construct(Reserve $reserve)
     {
+        $this->middleware('auth');
+
         $this->reserve = $reserve;
     }
 
