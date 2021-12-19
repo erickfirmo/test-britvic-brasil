@@ -28,4 +28,11 @@ class Customer extends Model
     {
         return $this->dob->format('d/m/Y');
     }
+
+    public function getDocumentNumber()
+    {
+        $document_number = preg_replace("/\D/", '', $this->document_number);
+  
+        return strlen($document_number) === 11 ? preg_replace("/(\d{3})(\d{3})(\d{3})(\d{2})/", "\$1.\$2.\$3-\$4", $document_number) : $document_number;
+    }
 }
