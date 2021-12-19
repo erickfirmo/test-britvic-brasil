@@ -32,7 +32,7 @@
                             <tr>
                                 <th scope="row">{{ $customer->id }}</th>
                                 <td>{{ $customer->name }}</td>
-                                <td>{{ $customer->document_number }}</td>
+                                <td>{{ $customer->getDocumentNumber() }}</td>
                                 <td>{{ $customer->getDayOfBirthday() }}</td>
                                 <td>
                                     <a href="{{ route('customers.edit', $customer->id) }}" class="edit btn btn-info btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
