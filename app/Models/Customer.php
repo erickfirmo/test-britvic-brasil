@@ -17,8 +17,15 @@ class Customer extends Model
         'dob'
     ];
 
+    protected $dates = ['created_at', 'dob'];
+
     public function reserves()
     {
         return $this->hasMany(Reserve::class);
+    }
+
+    public function getDayOfBirthday()
+    {
+        return $this->dob->format('d/m/Y');
     }
 }
