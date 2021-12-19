@@ -109,7 +109,29 @@ class ReserveController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('reserves.edit', ['reserve' => $id]);
+        try {
+            $reserve = $this->reserve->findOrFail($id);
+
+            $vehicles = Vehicle::select(DB::raw("CONCAT(model, ' (', brand, ')') AS name"), 'id')
+                                ->pluck('name', 'id')->toArray();
+
+            $customers = Customer::select(DB::raw("CONCAT(name, ' (', document_number, ')') AS name"), 'id')
+                                ->pluck('name', 'id')->toArray(); 
+            
+            $disabled = true;
+
+            return view('reserves.show', compact('reserve', 'vehicles', 'customers', 'disabled'));
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao carregar as informações da reserva:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar as informações da reserva!');
+            return redirect()->back();
+        }
     }
 
     /**
