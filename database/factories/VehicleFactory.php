@@ -20,7 +20,7 @@ class VehicleFactory extends Factory
         return [
             'model' => $this->faker->vehicleModel,
             'brand' => $this->faker->vehicleBrand,
-            'year' => $this->faker->dateTimeBetween('1969', '2021')->format('Y'),
+            'year' => $this->faker->dateTimeBetween('1980-01-01', 'now')->format('Y'),
             'plate' => strtoupper(Str::random(7))
         ];
     }
