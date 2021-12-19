@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reserve;
+use Session;
 
 class ReserveController extends Controller
 {
@@ -70,7 +71,25 @@ class ReserveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $data = $request->all();
+
+            $reserve = $this->reserve->create($data);
+
+            Session::flash('success', 'Reserva criado com sucesso!');
+
+            return redirect()->route('reserves.edit', ['reserve' => $reserve->id]);
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao criar reserva: '. $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao criar reserva!');
+            return redirect()->back();
+        }
     }
 
     /**
