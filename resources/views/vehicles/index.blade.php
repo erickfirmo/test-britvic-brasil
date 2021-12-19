@@ -38,7 +38,8 @@
                                 <td>{{ $vehicle->year }}</td>
                                 <td>{{ $vehicle->plate }}</td>
                                 <td>
-                                    <a href="{{ route('vehicles.edit', $vehicle->id) }}" class="edit btn btn-info btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+                                    <a href="{{ route('vehicles.show', $vehicle->id) }}" class="edit btn btn-dark btn-sm"><i class="fas fa-eye"></i>&nbsp;Visualizar</a>
+                                    <a href="{{ route('vehicles.edit', $vehicle->id) }}" class="edit btn btn-primary btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
                                     <button data-bs-target="#removeModal" data-bs-toggle="modal" data-url="{{ route('vehicles.destroy', $vehicle->id) }}" class="delete btn btn-danger btn-sm remove-button"><i class="fas fa-trash-alt"></i>&nbsp;Excluir</a>
                                 </td>
                             </tr>
