@@ -65,7 +65,7 @@
                 {{ __('Cancelar') }}
             </a>
             <button type="submit" class="btn btn-primary">
-                {{ __('Register') }}
+                {{ __('Salvar') }}
             </button>
         </div>
     </div>
