@@ -13,8 +13,12 @@ class Reserve extends Model
 
     protected $fillable = [
         'vehicle_id',
-        'customer_id'
+        'customer_id',
+        'date',
+        'description'
     ];
+
+    protected $dates = ['created_at', 'date'];
 
     public function vehicle()
     {
@@ -24,5 +28,10 @@ class Reserve extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function getDate()
+    {
+        return $this->date->format('d/m/Y');
     }
 }
