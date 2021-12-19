@@ -33,7 +33,7 @@
                                 <th scope="row">{{ $customer->id }}</th>
                                 <td>{{ $customer->name }}</td>
                                 <td>{{ $customer->document_number }}</td>
-                                <td>{{ $customer->dob }}</td>
+                                <td>{{ $customer->getDayOfBirthday() }}</td>
                                 <td>
                                     <a href="{{ route('customers.edit', $customer->id) }}" class="edit btn btn-info btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
                                     <button data-bs-target="#removeModal" data-bs-toggle="modal" data-url="{{ route('customers.destroy', $customer->id) }}" class="delete btn btn-danger btn-sm remove-button"><i class="fas fa-trash-alt"></i>&nbsp;Excluir</a>
