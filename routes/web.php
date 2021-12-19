@@ -23,7 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('usuarios', App\Http\Controllers\CustomerController::class, [
     'parameters' => [
-        'usuarios' => 'user',
+        'usuarios' => 'customer',
     ],
     'names' => [
         'index' => 'customers.index',
