@@ -13,7 +13,7 @@
                 <div class="card-header">Informações do Veículo</div>
 
                 <div class="card-body">
-                    {!! Form::open(['url' => '#', 'disabled' => 'disabled']) !!}
+                    {!! Form::open(['url' => '#']) !!}
 
                     @include('vehicles.partials.form')
                 </div>
