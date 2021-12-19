@@ -43,7 +43,11 @@
                                 </td>
                             </tr>
                         @empty
-                            <p>Nenhum veículo encontrado</p>
+                            <tr>
+                                <td colspan="6">
+                                    <p class="text-center m-0">Nenhum veículo encontrado</p>
+                                </td>
+                            <tr>
                         @endforelse
                         </tbody>
                     </table>
