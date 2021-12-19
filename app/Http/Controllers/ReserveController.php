@@ -46,7 +46,20 @@ class ReserveController extends Controller
      */
     public function create()
     {
-        //
+        try {
+
+            return view('reserves.create');
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de reservas:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de reservas!');
+            return redirect()->back();
+        }
     }
 
     /**
