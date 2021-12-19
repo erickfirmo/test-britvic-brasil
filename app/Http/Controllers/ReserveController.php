@@ -53,10 +53,10 @@ class ReserveController extends Controller
         try {
 
             $vehicles = Vehicle::select(DB::raw("CONCAT(model, ' (', brand, ')') AS name"), 'id')
-                                ->pluck('name', 'id');
+                                ->pluck('name', 'id')->toArray();
 
             $customers = Customer::select(DB::raw("CONCAT(name, ' (', document_number, ')') AS name"), 'id')
-                                ->pluck('name', 'id');                    
+                                ->pluck('name', 'id')->toArray();                    
 
             return view('reserves.create', compact('vehicles', 'customers'));
 
@@ -123,7 +123,13 @@ class ReserveController extends Controller
         try {
             $reserve = $this->reserve->findOrFail($id);
 
-            return view('reserves.edit', compact('reserve'));
+            $vehicles = Vehicle::select(DB::raw("CONCAT(model, ' (', brand, ')') AS name"), 'id')
+                                ->pluck('name', 'id')->toArray();
+
+            $customers = Customer::select(DB::raw("CONCAT(name, ' (', document_number, ')') AS name"), 'id')
+                                ->pluck('name', 'id')->toArray();      
+
+            return view('reserves.edit', compact('reserve', 'vehicles', 'customers'));
 
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
@@ -153,7 +159,7 @@ class ReserveController extends Controller
 
             $reserve->update($data);
 
-            Session::flash('success', 'Reserva atualizado com sucesso!');
+            Session::flash('success', 'Reserva atualizada com sucesso!');
 
             return redirect()->route('reserves.edit', ['reserve' => $id]);
 
@@ -182,7 +188,7 @@ class ReserveController extends Controller
 
             $reserve->delete();
 
-            Session::flash('success', 'Reserva removido com sucesso!');
+            Session::flash('success', 'Reserva removida com sucesso!');
 
             return redirect()->route('reserves.index');
 
