@@ -21,14 +21,22 @@ class ReserveController extends Controller
      */
     public function index()
     {
-        /*$data = [
-            'vehicle_id' => '1',
-            'customer_id' => '1'
-        ];
+        try {
 
-        $response = $this->reserve->create($data);
+            $reserves = $this->reserve->orderBy('id', 'desc')->paginate(20);
 
-        dd($response);*/
+            return view('reserves.index', compact('reserves'));
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de reservas:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de reservas!');
+            return redirect()->back();
+        }
     }
 
     /**
