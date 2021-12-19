@@ -43,7 +43,7 @@
                                 </td>
                             </tr>
                         @empty
-                            <p>No users</p>
+                            <p>Nenhum veículo encontrado</p>
                         @endforelse
                         </tbody>
                     </table>
