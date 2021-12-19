@@ -138,7 +138,7 @@ class ReserveController extends Controller
                 return redirect()->back();
             }
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do reserva!');
+            Session::flash('danger', 'Ocorreu um erro ao carregar as informações da reserva!');
             return redirect()->back();
         }
     }
