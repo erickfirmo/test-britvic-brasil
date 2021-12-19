@@ -50,3 +50,19 @@ Route::resource('veiculos', App\Http\Controllers\VehicleController::class, [
         'show' => 'vehicles.show',
     ]
 ]);
+
+Route::resource('reservas', App\Http\Controllers\ReserveController::class, [
+    'parameters' => [
+        'reservas' => 'reserve',
+    ],
+    'names' => [
+        'index' => 'reserves.index',
+        'create' => 'reserves.create',
+        'edit' => 'reserves.edit',
+        'update' => 'reserves.update',
+        'destroy' => 'reserves.destroy',
+        'store' => 'reserves.store',
+        'show' => 'reserves.show',
+    ]
+]);
+
