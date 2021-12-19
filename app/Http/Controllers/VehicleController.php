@@ -100,7 +100,23 @@ class VehicleController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('vehicles.edit', ['vehicle' => $id]);
+        try {
+            $vehicle = $this->vehicle->findOrFail($id);
+
+            $disabled = true;
+
+            return view('vehicles.show', compact('vehicle', 'disabled'));
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo!');
+            return redirect()->back();
+        }
     }
 
     /**
