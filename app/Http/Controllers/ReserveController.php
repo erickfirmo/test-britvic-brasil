@@ -137,7 +137,27 @@ class ReserveController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+
+            $reserve = $this->reserve->findOrFail($id);
+
+            $reserve->update($data);
+
+            Session::flash('success', 'Reserva atualizado com sucesso!');
+
+            return redirect()->route('reserves.edit', ['reserve' => $id]);
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao atualizar as informações da reserva:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao atualizar as informações da reserva!');
+            return redirect()->back();
+        }
     }
 
     /**
