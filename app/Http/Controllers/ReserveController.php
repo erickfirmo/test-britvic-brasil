@@ -111,7 +111,21 @@ class ReserveController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $reserve = $this->reserve->findOrFail($id);
+
+            return view('reserves.edit', compact('reserve'));
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao carregar as informações da reserva:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do reserva!');
+            return redirect()->back();
+        }
     }
 
     /**
