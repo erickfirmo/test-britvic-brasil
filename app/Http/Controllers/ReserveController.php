@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reserve;
+use App\Models\Vehicle;
 use Session;
+use Illuminate\Support\Facades\DB;
 
 class ReserveController extends Controller
 {
@@ -49,7 +51,10 @@ class ReserveController extends Controller
     {
         try {
 
-            return view('reserves.create');
+            $vehicles = Vehicle::select(DB::raw("CONCAT(model, ' (', brand, ')') AS name"), 'id')
+                                ->pluck('name', 'id');
+
+            return view('reserves.create', compact('vehicles'));
 
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
