@@ -103,7 +103,9 @@ class VehicleController extends Controller
         try {
             $vehicle = $this->vehicle->findOrFail($id);
 
-            return view('vehicles.show', compact('vehicle'));
+            $disabled = true;
+
+            return view('vehicles.show', compact('vehicle', 'disabled'));
 
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
