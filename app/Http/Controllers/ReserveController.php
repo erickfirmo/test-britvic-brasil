@@ -100,7 +100,7 @@ class ReserveController extends Controller
      */
     public function show($id)
     {
-        //
+        return redirect()->route('reserves.edit', ['reserve' => $id]);
     }
 
     /**
