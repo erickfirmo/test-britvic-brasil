@@ -35,7 +35,8 @@
                                 <td>{{ $reserve->customer->name }}</td>
                                 <td>{{ $reserve->getDate() }}</td>
                                 <td>
-                                    <a href="{{ route('reserves.edit', $reserve->id) }}" class="edit btn btn-info btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
+                                    <a href="{{ route('reserves.show', $reserve->id) }}" class="edit btn btn-dark btn-sm"><i class="fas fa-eye"></i>&nbsp;Visualizar</a>
+                                    <a href="{{ route('reserves.edit', $reserve->id) }}" class="edit btn btn-primary btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
                                     <button data-bs-target="#removeModal" data-bs-toggle="modal" data-url="{{ route('reserves.destroy', $reserve->id) }}" class="delete btn btn-danger btn-sm remove-button"><i class="fas fa-trash-alt"></i>&nbsp;Excluir</a>
                                 </td>
                             </tr>
