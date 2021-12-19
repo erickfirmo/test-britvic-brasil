@@ -100,7 +100,23 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('customers.edit', ['customer' => $id]);
+        try {
+            $customer = $this->customer->findOrFail($id);
+
+            $disabled = true;
+
+            return view('customers.show', compact('customer', 'disabled'));
+
+        } catch (\Exception $e) {
+            if (env('APP_DEBUG'))
+            {
+                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do usuário:' . $e->getMessage());
+                return redirect()->back();
+            }
+
+            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do usuário!');
+            return redirect()->back();
+        }
     }
 
     /**
