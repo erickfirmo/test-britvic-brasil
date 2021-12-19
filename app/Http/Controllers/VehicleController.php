@@ -12,6 +12,8 @@ class VehicleController extends Controller
 
     public function __construct(Vehicle $vehicle)
     {
+        $this->middleware('auth');
+
         $this->vehicle = $vehicle;
     }
 
