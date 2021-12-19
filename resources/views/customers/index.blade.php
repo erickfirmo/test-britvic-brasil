@@ -25,6 +25,7 @@
                                 <th scope="col">Nome</th>
                                 <th scope="col">CPF</th>
                                 <th scope="col">Data de Nascimento</th>
+                                <th scope="col">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,7 +41,11 @@
                                 </td>
                             </tr>
                         @empty
-                            <p>Nenhum usuário encontrado</p>
+                            <tr>
+                                <td colspan="5">
+                                    <p class="text-center m-0">Nenhum veículo encontrado</p>
+                                </td>
+                            <tr>
                         @endforelse
                         </tbody>
                     </table>
