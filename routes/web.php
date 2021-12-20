@@ -21,9 +21,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('usuarios', App\Http\Controllers\CustomerController::class, [
+Route::resource('clientes', App\Http\Controllers\CustomerController::class, [
     'parameters' => [
-        'usuarios' => 'customer',
+        'clientes' => 'customer',
     ],
     'names' => [
         'index' => 'customers.index',
