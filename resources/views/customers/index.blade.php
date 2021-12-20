@@ -12,11 +12,11 @@
 
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <h3>Usuários</h3>
+            <h3>Clientes</h3>
             <a href="{{ route('customers.create') }}" class="btn btn-primary text-light mb-4"><i class="fas fa-plus"></i>&nbsp;Novo</a>
 
             <div class="card">
-                <div class="card-header">{{ __('Todos os Usuários') }}</div>
+                <div class="card-header">{{ __('Todos os Clientes') }}</div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
