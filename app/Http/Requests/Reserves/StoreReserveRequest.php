@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Reserves;
 
 use App\Http\Requests\Reserves\ReserveRequest;
+use Illuminate\Validation\Rule;
 
 class StoreReserveRequest extends ReserveRequest
 {
@@ -13,11 +14,16 @@ class StoreReserveRequest extends ReserveRequest
      */
     public function rules()
     {
+        //dd($this->input('date'));
         return [
             'vehicle_id' => [
                 'required',
                 'max:255',
-                'exists:vehicles,id'
+                'exists:vehicles,id',
+                Rule::unique('reserves')->where(function ($query) {
+                    return $query->where('vehicle_id', $this->input('vehicle_id'))
+                                ->where('date', $this->input('date'));
+                })
             ],
             'customer_id' => [
                 'required',
@@ -31,8 +37,9 @@ class StoreReserveRequest extends ReserveRequest
                 'after:today'
             ],
             'description' => [
-                'text',
-                'max:1000'
+                'string',
+                'max:1000',
+                'nullable'
             ]
         ];
     }
