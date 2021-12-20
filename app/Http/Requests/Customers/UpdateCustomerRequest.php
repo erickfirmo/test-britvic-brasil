@@ -17,7 +17,7 @@ class UpdateCustomerRequest extends FormRequest
         return [
             'name' => ['required', 'max:255'],
             'document_number' => ['required', 'unique:customers' . 'unique:customers,' . $this->route('customer'), new CpfRule],
-            'dob' => ['required', 'date', new AgeRule(18)]
+            'dob' => ['required', 'date', 'date_format:Y-m-d', 'before:today', new AgeRule(18)]
         ];
     }
 }
