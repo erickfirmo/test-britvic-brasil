@@ -15,11 +15,11 @@
 </div>
 
 <div class="row mb-3">
-    {!! Form::label('customer_id', 'Usuário', ['for' => 'customer_id', 'class' => 'col-md-4 col-form-label text-md-right']) !!}
+    {!! Form::label('customer_id', 'Cliente', ['for' => 'customer_id', 'class' => 'col-md-4 col-form-label text-md-right']) !!}
 
     <div class="col-md-6">
 
-        {!! Form::select('customer_id', ['' => 'Selecione um usuário'] + $customers ?? null, $reserve->customer->id ?? null, ['class' => 'form-control'. ($errors->has('customer_id') ? ' is-invalid' : null), 'id' => 'customer_id',  'autofocus' => 'autofocus', 'autocomplete' => 'customer_id', 'disabled' => $disabled ?? null]) !!}
+        {!! Form::select('customer_id', ['' => 'Selecione um cliente'] + $customers ?? null, $reserve->customer->id ?? null, ['class' => 'form-control'. ($errors->has('customer_id') ? ' is-invalid' : null), 'id' => 'customer_id',  'autofocus' => 'autofocus', 'autocomplete' => 'customer_id', 'disabled' => $disabled ?? null]) !!}
 
         @error("customer_id")
             <span class="invalid-feedback" role="alert">
@@ -61,7 +61,7 @@
 
 <div class="row mb-0">
     <div class="col-md-6 offset-md-4">
-        <a href="{{ route('reserves.index') }}" type="button" class="btn btn-light">
+        <a href="{{ url()->previous() }}" type="button" class="btn btn-light">
             {{ __('Cancelar') }}
         </a>
         @if(!isset($disabled))  
