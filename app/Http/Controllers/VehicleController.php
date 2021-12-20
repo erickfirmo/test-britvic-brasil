@@ -7,6 +7,8 @@ use App\Models\Vehicle;
 use Session;
 use App\Http\Requests\Vehicles\StoreVehicleRequest;
 use App\Http\Requests\Vehicles\UpdateVehicleRequest;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class VehicleController extends Controller
 {
@@ -97,19 +99,55 @@ class VehicleController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Return date range
      *
+     * @param  string  $date
+     * @param  string  $format
+     * @return string
+     */
+    public function getDateRange($date, $format)
+    {
+        $start = Carbon::createFromFormat($format, $date)->startOfMonth()->toDateString();;
+
+        $end = Carbon::createFromFormat($format, $date)->endOfMonth()->toDateString();
+
+        $dateRange = CarbonPeriod::create($start, $end)->toArray();
+
+        return $dateRange;
+    }
+
+    /**
+     * Display the specified resource.
+     * 
+     * @param  Illuminate\Http\Request $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         try {
+
+            $request->validate([
+                'month' => 'date_format:m-Y'
+            ]);
+
+            $month = $request->input('month');
+
             $vehicle = $this->vehicle->findOrFail($id);
 
-            $disabled = true;
+            $dateRange = $this->getDateRange($month, 'm-Y');
 
-            return view('vehicles.show', compact('vehicle', 'disabled'));
+            $reserves =  collect($vehicle->reserves)->mapWithKeys(function($reserve, $key) {
+                return [$reserve->date->format('Y-m-d') => $reserve];
+            });
+
+            $reserveDays = collect($dateRange)->mapWithKeys(function($date, $key) use ($reserves) {
+                return [$date->format('d/m/Y') => ($reserves->has($date->format('Y-m-d')) ? $reserves[$date->format('Y-m-d')] : null)];
+            });
+
+            $disabled = true;
+    
+            return view('vehicles.show', compact('vehicle', 'disabled', 'reserveDays'));
 
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
