@@ -107,6 +107,8 @@ class VehicleController extends Controller
      */
     public function getDateRange($date, $format)
     {
+        $date = $date->format($format);
+
         $start = Carbon::createFromFormat($format, $date)->startOfMonth()->toDateString();;
 
         $end = Carbon::createFromFormat($format, $date)->endOfMonth()->toDateString();
@@ -126,16 +128,21 @@ class VehicleController extends Controller
     public function show(Request $request, $id)
     {
         try {
-
             $request->validate([
                 'month' => 'date_format:m-Y|nullable'
             ]);
 
-            $month = $request->input('month') ?? Carbon::now()->format('m-Y');
-
-            $vehicle = $this->vehicle->findOrFail($id);
+            $month = $request->input('month') ? Carbon::createFromFormat('m-Y', $request->input('month')) : Carbon::now();
+            $lastMonth = $month;
+            $nextMonth = $month;
 
             $dateRange = $this->getDateRange($month, 'm-Y');
+
+            $month = $month->format('m/Y');
+            $lastMonth = $lastMonth->subMonths(1)->format('m-Y');
+            $nextMonth = $nextMonth->addMonths(2)->format('m-Y');
+
+            $vehicle = $this->vehicle->findOrFail($id);
 
             $reserves =  collect($vehicle->reserves)->mapWithKeys(function($reserve, $key) {
                 return [$reserve->date->format('Y-m-d') => $reserve];
@@ -147,12 +154,12 @@ class VehicleController extends Controller
 
             $disabled = true;
     
-            return view('vehicles.show', compact('vehicle', 'disabled', 'reserveDays', 'month'));
+            return view('vehicles.show', compact('vehicle', 'disabled', 'reserveDays', 'month', 'lastMonth', 'nextMonth'));
 
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo:' . $e->getMessage());
+                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo: ' . $e->getMessage());
                 return redirect()->back();
             }
 
@@ -170,9 +177,23 @@ class VehicleController extends Controller
     public function edit($id)
     {
         try {
+            $request->validate([
+                'month' => 'date_format:m-Y|nullable'
+            ]);
+
+            $month = $request->input('month') ? Carbon::createFromFormat('m-Y', $request->input('month')) : Carbon::now();
+            $lastMonth = $month;
+            $nextMonth = $month;
+
+            $dateRange = $this->getDateRange($month, 'm-Y');
+
+            $month = $month->format('m/Y');
+            $lastMonth = $lastMonth->subMonths(1)->format('m-Y');
+            $nextMonth = $nextMonth->addMonths(2)->format('m-Y');
+
             $vehicle = $this->vehicle->findOrFail($id);
 
-            return view('vehicles.edit', compact('vehicle'));
+            return view('vehicles.edit', compact('vehicle', 'reserveDays', 'month', 'lastMonth', 'nextMonth'));
 
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
