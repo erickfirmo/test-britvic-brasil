@@ -30,11 +30,13 @@ class CpfRule implements Rule
 
         // Verifica se foi informado todos os digitos corretamente
         if (strlen($cpf) != 11) {
+            $this->message = __('validation.custom.document_number.invalid_format');
             return false;
         }
 
         // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
         if (preg_match('/(\d)\1{10}/', $cpf)) {
+            $this->message = __('validation.custom.document_number.invalid');
             return false;
         }
 
@@ -45,6 +47,7 @@ class CpfRule implements Rule
             }
             $d = ((10 * $d) % 11) % 10;
             if ($cpf[$c] != $d) {
+                $this->message = __('validation.custom.document_number.invalid');
                 return false;
             }
         }
@@ -59,6 +62,6 @@ class CpfRule implements Rule
      */
     public function message()
     {
-        return __('validation.custom.document_number.invalid_format');
+        return $this->message;
     }
 }
