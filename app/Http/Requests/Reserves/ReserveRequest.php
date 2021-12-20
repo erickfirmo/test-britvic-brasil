@@ -34,7 +34,7 @@ class ReserveRequest extends FormRequest
             'date.date' => __('validation.reserves.messages.date.date'),
             'date.date_format' => __('validation.reserves.messages.date.date_format'),
             'date.after' => __('validation.reserves.messages.date.after'),
-            'description.text' => __('validation.reserves.messages.description.text'),
+            'description.string' => __('validation.reserves.messages.description.string'),
             'description.max' => __('validation.reserves.messages.description.max'),
         ];
     }
