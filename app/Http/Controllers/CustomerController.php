@@ -7,9 +7,14 @@ use App\Models\Customer;
 use Session;
 use App\Http\Requests\Customers\StoreCustomerRequest;
 use App\Http\Requests\Customers\UpdateCustomerRequest;
+use App\Http\Traits\ViewException;
+use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
+
+    use ViewException;
+    
     protected $customer;
 
     public function __construct(Customer $customer)
@@ -33,13 +38,9 @@ class CustomerController extends Controller
             return view('customers.index', compact('customers'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de usuários:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de usuários!');
+            $this->exception($e, 'Ocorreu um erro ao carregar a listagem de clientes!');
+
             return redirect()->back();
         }
     }
@@ -56,13 +57,9 @@ class CustomerController extends Controller
             return view('customers.create');
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de usuários:' . $e->getMessage());
-                return redirect()->back();
-            }
+            
+            $this->exception($e, 'Ocorreu um erro ao carregar a página de cadastro de clientes');
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de usuários!');
             return redirect()->back();
         }
     }
@@ -80,18 +77,14 @@ class CustomerController extends Controller
 
             $customer = $this->customer->create($data);
 
-            Session::flash('success', 'Usuário criado com sucesso!');
+            Session::flash('success', 'Cliente criado com sucesso!');
 
             return redirect()->route('customers.edit', ['customer' => $customer->id]);
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao criar usuário: '. $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao criar usuário!');
+            $this->exception($e, 'Ocorreu um erro ao criar cliente');
+
             return redirect()->back();
         }
     }
@@ -112,13 +105,9 @@ class CustomerController extends Controller
             return view('customers.show', compact('customer', 'disabled'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do usuário:' . $e->getMessage());
-                return redirect()->back();
-            }
+            
+            $this->exception($e, 'Ocorreu um erro ao carregar as informações do cliente!');
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do usuário!');
             return redirect()->back();
         }
     }
@@ -137,13 +126,9 @@ class CustomerController extends Controller
             return view('customers.edit', compact('customer'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do usuário:' . $e->getMessage());
-                return redirect()->back();
-            }
+            
+            $this->exception($e, 'Ocorreu um erro ao carregar as informações do cliente');
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do usuário!');
             return redirect()->back();
         }
     }
@@ -164,18 +149,23 @@ class CustomerController extends Controller
 
             $customer->update($data);
 
-            Session::flash('success', 'Usuário atualizado com sucesso!');
+            Session::flash('success', 'Cliente atualizado com sucesso!');
 
             return redirect()->route('customers.edit', ['customer' => $id]);
 
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
             {
-                Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do usuário:' . $e->getMessage());
+                Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do cliente:' . $e->getMessage());
                 return redirect()->back();
             }
 
-            Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do usuário!');
+            Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do cliente!');
+            return redirect()->back();
+
+
+            $this->exception($e, 'Ocorreu um erro ao carregar as informações do cliente');
+
             return redirect()->back();
         }
     }
@@ -193,18 +183,14 @@ class CustomerController extends Controller
 
             $customer->delete();
 
-            Session::flash('success', 'Usuário removido com sucesso!');
+            Session::flash('success', 'Cliente removido com sucesso!');
 
             return redirect()->route('customers.index');
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao remover veículo:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao remover veículo!');
+            $this->exception($e, 'Ocorreu um erro ao remover cliente:');
+
             return redirect()->back();
         }
     }
