@@ -4,6 +4,7 @@ namespace App\Http\Requests\Customers;
 
 use App\Http\Requests\Customers\CustomerRequest;
 use App\Rules\CpfRule;
+use App\Rules\AgeRule;
 
 class StoreCustomerRequest extends CustomerRequest
 {
@@ -17,7 +18,7 @@ class StoreCustomerRequest extends CustomerRequest
         return [
             'name' => ['required', 'max:255'],
             'document_number' => ['required', 'unique:customers', new CpfRule],
-            'dob' => ['required', 'date']
+            'dob' => ['required', 'date', new AgeRule(18)]
         ];
     }
 }
