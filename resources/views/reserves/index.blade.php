@@ -23,6 +23,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Veículo</th>
                                 <th scope="col">Cliente</th>
+                                <th scope="col">Usuário</th>
                                 <th scope="col">Data</th>
                                 <th scope="col">Ações</th>
                             </tr>
@@ -33,6 +34,7 @@
                                 <th scope="row">{{ $reserve->id }}</th>
                                 <td>{{ $reserve->vehicle->model . '-' . $reserve->vehicle->brand }}</td>
                                 <td>{{ $reserve->customer->name }}</td>
+                                <td>{{ $reserve->user->name }}</td>
                                 <td>{{ $reserve->getDate() }}</td>
                                 <td>
                                     <a href="{{ route('reserves.show', $reserve->id) }}" class="edit btn btn-dark btn-sm"><i class="fas fa-eye"></i>&nbsp;Visualizar</a>
