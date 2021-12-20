@@ -9,9 +9,13 @@ use App\Http\Requests\Vehicles\StoreVehicleRequest;
 use App\Http\Requests\Vehicles\UpdateVehicleRequest;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use App\Http\Traits\ViewException;
+use Illuminate\Support\Facades\Log;
 
 class VehicleController extends Controller
 {
+    use ViewException;
+
     protected $vehicle;
 
     public function __construct(Vehicle $vehicle)
@@ -35,13 +39,9 @@ class VehicleController extends Controller
             return view('vehicles.index', compact('vehicles'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de veículos:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de veículos!');
+            $this->exception($e, 'Ocorreu um erro ao carregar a listagem de veículos');
+
             return redirect()->back();
         }
     }
@@ -58,13 +58,9 @@ class VehicleController extends Controller
             return view('vehicles.create');
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de veículos:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de veículos!');
+            $this->exception($e, 'Ocorreu um erro ao carregar a página de cadastro de veículos');
+
             return redirect()->back();
         }
     }
@@ -87,13 +83,9 @@ class VehicleController extends Controller
             return redirect()->route('vehicles.edit', ['vehicle' => $vehicle->id]);
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao criar veículo: '. $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao criar veículo!');
+            $this->exception($e, 'Ocorreu um erro ao criar veículo');
+
             return redirect()->back();
         }
     }
@@ -157,13 +149,9 @@ class VehicleController extends Controller
             return view('vehicles.show', compact('vehicle', 'disabled', 'reserveDays', 'month', 'lastMonth', 'nextMonth'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo: ' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo!');
+            $this->exception($e, 'Ocorreu um erro ao carregar as informações do veículo');
+
             return redirect()->back();
         }
     }
@@ -196,13 +184,9 @@ class VehicleController extends Controller
             return view('vehicles.edit', compact('vehicle', 'reserveDays', 'month', 'lastMonth', 'nextMonth'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar as informações do veículo!');
+            $this->exception($e, 'Ocorreu um erro ao carregar as informações do veículo');
+
             return redirect()->back();
         }
     }
@@ -228,13 +212,9 @@ class VehicleController extends Controller
             return redirect()->route('vehicles.edit', ['vehicle' => $id]);
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do veículo:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao atualizar as informações do veículo!');
+            $this->exception($e, 'Ocorreu um erro ao atualizar as informações do veículo');
+
             return redirect()->back();
         }
     }
@@ -257,13 +237,9 @@ class VehicleController extends Controller
             return redirect()->route('vehicles.index');
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao remover veículo:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao remover veículo!');
+            $this->exception($e, 'Ocorreu um erro ao remover veículo');
+
             return redirect()->back();
         }
     }
