@@ -8,6 +8,8 @@ use App\Models\Vehicle;
 use App\Models\Customer;
 use Session;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Reserves\StoreReserveRequest;
+use App\Http\Requests\Reserves\UpdateReserveRequest;
 
 class ReserveController extends Controller
 {
@@ -77,17 +79,17 @@ class ReserveController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Reserves\StoreReserveRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreReserveRequest $request)
     {
         try {
-            $data = $request->all();
+            $data = $request->validated();
 
             $reserve = $this->reserve->create($data);
 
-            Session::flash('success', 'Reserva criado com sucesso!');
+            Session::flash('success', 'Reserva criada com sucesso!');
 
             return redirect()->route('reserves.edit', ['reserve' => $reserve->id]);
 
@@ -170,14 +172,14 @@ class ReserveController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Reserves\UpdateReserveRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateReserveRequest $request, $id)
     {
         try {
-            $data = $request->all();
+            $data = $request->validated();
 
             $reserve = $this->reserve->findOrFail($id);
 
