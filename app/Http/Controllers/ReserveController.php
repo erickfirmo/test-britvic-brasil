@@ -10,9 +10,13 @@ use Session;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Reserves\StoreReserveRequest;
 use App\Http\Requests\Reserves\UpdateReserveRequest;
+use App\Http\Traits\ViewException;
+use Illuminate\Support\Facades\Log;
 
 class ReserveController extends Controller
 {
+    use ViewException;
+
     protected $reserve;
 
     public function __construct(Reserve $reserve)
@@ -32,17 +36,12 @@ class ReserveController extends Controller
         try {
 
             $reserves = $this->reserve->orderBy('id', 'desc')->paginate(20);
-
             return view('reserves.index', compact('reserves'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de reservas:' . $e->getMessage());
-                return redirect()->back();
-            }
+            
+            $this->exception($e, 'Ocorreu um erro ao carregar a listagem de reservas');
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar a listagem de reservas!');
             return redirect()->back();
         }
     }
@@ -65,13 +64,9 @@ class ReserveController extends Controller
             return view('reserves.create', compact('vehicles', 'customers'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de reservas:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar a página de cadastro de reservas!');
+            $this->exception($e, 'Ocorreu um erro ao carregar a página de cadastro de reservas');
+
             return redirect()->back();
         }
     }
@@ -89,18 +84,16 @@ class ReserveController extends Controller
 
             $reserve = $this->reserve->create($data);
 
+            Log::info('Reserva cadastrada - ID: ' . $reserve->id . ' - Client ID: ' . $reserve->customer->id . ' - User ID: ' . $reserve->user->id);
+
             Session::flash('success', 'Reserva criada com sucesso!');
 
             return redirect()->route('reserves.edit', ['reserve' => $reserve->id]);
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao criar reserva: '. $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao criar reserva!');
+            $this->exception($e, 'Ocorreu um erro ao criar reserva');
+
             return redirect()->back();
         }
     }
@@ -127,13 +120,9 @@ class ReserveController extends Controller
             return view('reserves.show', compact('reserve', 'vehicles', 'customers', 'disabled'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar as informações da reserva:' . $e->getMessage());
-                return redirect()->back();
-            }
+            
+            $this->exception($e, 'Ocorreu um erro ao carregar as informações da reserva');
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar as informações da reserva!');
             return redirect()->back();
         }
     }
@@ -158,13 +147,9 @@ class ReserveController extends Controller
             return view('reserves.edit', compact('reserve', 'vehicles', 'customers'));
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao carregar as informações da reserva:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao carregar as informações da reserva!');
+            $this->exception($e, 'Ocorreu um erro ao carregar as informações da reserva');
+
             return redirect()->back();
         }
     }
@@ -190,13 +175,9 @@ class ReserveController extends Controller
             return redirect()->route('reserves.edit', ['reserve' => $id]);
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao atualizar as informações da reserva:' . $e->getMessage());
-                return redirect()->back();
-            }
 
-            Session::flash('danger', 'Ocorreu um erro ao atualizar as informações da reserva!');
+            $this->exception($e, 'Ocorreu um erro ao atualizar as informações da reserva');
+
             return redirect()->back();
         }
     }
@@ -219,13 +200,9 @@ class ReserveController extends Controller
             return redirect()->route('reserves.index');
 
         } catch (\Exception $e) {
-            if (env('APP_DEBUG'))
-            {
-                Session::flash('danger', 'Ocorreu um erro ao remover reserva:' . $e->getMessage());
-                return redirect()->back();
-            }
+            
+            $this->exception($e, 'Ocorreu um erro ao remover reserva');
 
-            Session::flash('danger', 'Ocorreu um erro ao remover reserva!');
             return redirect()->back();
         }
     }
