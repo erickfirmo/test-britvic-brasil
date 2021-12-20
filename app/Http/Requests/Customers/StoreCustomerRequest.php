@@ -18,7 +18,7 @@ class StoreCustomerRequest extends CustomerRequest
         return [
             'name' => ['required', 'max:255'],
             'document_number' => ['required', 'unique:customers', new CpfRule],
-            'dob' => ['required', 'date', new AgeRule(18)]
+            'dob' => ['required', 'date', 'date_format:Y-m-d', 'before:today', new AgeRule(18)]
         ];
     }
 }
