@@ -128,10 +128,10 @@ class VehicleController extends Controller
         try {
 
             $request->validate([
-                'month' => 'date_format:m-Y'
+                'month' => 'date_format:m-Y|nullable'
             ]);
 
-            $month = $request->input('month');
+            $month = $request->input('month') ?? Carbon::now()->format('m-Y');
 
             $vehicle = $this->vehicle->findOrFail($id);
 
@@ -147,7 +147,7 @@ class VehicleController extends Controller
 
             $disabled = true;
     
-            return view('vehicles.show', compact('vehicle', 'disabled', 'reserveDays'));
+            return view('vehicles.show', compact('vehicle', 'disabled', 'reserveDays', 'month'));
 
         } catch (\Exception $e) {
             if (env('APP_DEBUG'))
