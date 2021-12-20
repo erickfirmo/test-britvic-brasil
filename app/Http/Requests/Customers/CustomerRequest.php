@@ -27,11 +27,11 @@ class CustomerRequest extends FormRequest
             'name.required' => __('validation.required'),
             'name.max' => __('validation.max'),
             'document_number.required' => __('validation.required'),
-            'document_number.unique' => __('validation.custom.document_number.unique'),
+            'document_number.unique' => __('validation.customers.messages.document_number.unique'),
             'dob.required' => __('validation.required'),
             'dob.date' => __('validation.date'),
             'dob.date_format' => __('validation.date_format'),
-            'dob.before' => __('validation.custom.dob.before.today'),
+            'dob.before' => __('validation.customers.messages.dob.before.today'),
         ];
     }
 
@@ -43,9 +43,9 @@ class CustomerRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => __('validation.attributes.name'),
-            'document_number' => __('validation.attributes.document_number'),
-            'dob' => __('validation.attributes.dob')
+            'name' => __('validation.customers.attributes.name'),
+            'document_number' => __('validation.customers.attributes.document_number'),
+            'dob' => __('validation.customers.attributes.dob')
         ];
     }
 }
