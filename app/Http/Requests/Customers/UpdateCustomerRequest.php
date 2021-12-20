@@ -4,6 +4,7 @@ namespace App\Http\Requests\Customers;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\Rules\CpfRule;
+use App\Rules\AgeRule;
 
 class UpdateCustomerRequest extends FormRequest
 {
