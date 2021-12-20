@@ -30,6 +30,8 @@ class CustomerRequest extends FormRequest
             'document_number.unique' => __('validation.custom.document_number.unique'),
             'dob.required' => __('validation.required'),
             'dob.date' => __('validation.date'),
+            'dob.date_format' => __('validation.date_format'),
+            'dob.before' => __('validation.custom.dob.before.today'),
         ];
     }
 
