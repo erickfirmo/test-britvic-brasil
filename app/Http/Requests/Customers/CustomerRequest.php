@@ -15,7 +15,7 @@ class CustomerRequest extends FormRequest
     {
         return true;
     }
-    
+
     /**
      * Get the error messages for the defined validation rules.
      *
@@ -27,7 +27,7 @@ class CustomerRequest extends FormRequest
             'name.required' => __('validation.required'),
             'name.max' => __('validation.max'),
             'document_number.required' => __('validation.required'),
-            'document_number.unique' => __('validation.unique'),
+            'document_number.unique' => __('validation.custom.document_number.unique'),
             'dob.required' => __('validation.required'),
             'dob.date' => __('validation.date'),
         ];
