@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Customer;
 use Session;
+use App\Http\Requests\Customers\StoreCustomerRequest;
+use App\Http\Requests\Customers\UpdateCustomerRequest;
 
 class CustomerController extends Controller
 {
@@ -68,13 +70,13 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Customers\StoreCustomerRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
         try {
-            $data = $request->all();
+            $data = $request->validated();
 
             $customer = $this->customer->create($data);
 
@@ -149,11 +151,11 @@ class CustomerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Customers\UpdateCustomerRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateCustomerRequest $request, $id)
     {
         try {
             $data = $request->all();
