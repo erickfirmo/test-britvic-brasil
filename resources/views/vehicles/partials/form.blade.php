@@ -62,7 +62,7 @@
 <div class="row mb-0">
     <div class="col-md-6 offset-md-4">
         <a href="{{ route('vehicles.index') }}" type="button" class="btn btn-light">
-            {{ __('Cancelar') }}
+            {{ __('Voltar') }}
         </a>
         @if(!isset($disabled))  
         <button type="submit" class="btn btn-primary">
