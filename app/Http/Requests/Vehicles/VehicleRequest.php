@@ -52,10 +52,10 @@ class VehicleRequest extends FormRequest
     public function attributes()
     {
         return [
-            'model' => __('validation.vehicles.attributes.model'),
-            'brand' => __('validation.vehicles.attributes.brand'),
-            'year' => __('validation.vehicles.attributes.year'),
-            'plate' => __('validation.vehicles.attributes.plate'),
+            'model' => __('validation.attributes.vehicles.model'),
+            'brand' => __('validation.attributes.vehicles.brand'),
+            'year' => __('validation.attributes.vehicles.year'),
+            'plate' => __('validation.attributes.vehicles.plate'),
         ];
     }
 }
