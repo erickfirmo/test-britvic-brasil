@@ -10,12 +10,12 @@ use Session;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Reserves\StoreReserveRequest;
 use App\Http\Requests\Reserves\UpdateReserveRequest;
-use App\Http\Traits\ViewException;
+use App\Http\Traits\ViewAlerts;
 use Illuminate\Support\Facades\Log;
 
 class ReserveController extends Controller
 {
-    use ViewException;
+    use ViewAlerts;
 
     protected $reserve;
 
@@ -40,7 +40,7 @@ class ReserveController extends Controller
 
         } catch (\Exception $e) {
             
-            $this->exception($e, 'Ocorreu um erro ao carregar a listagem de reservas');
+            $this->error($e, 'Ocorreu um erro ao carregar a listagem de reservas');
 
             return redirect()->back();
         }
@@ -65,7 +65,7 @@ class ReserveController extends Controller
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao carregar a página de cadastro de reservas');
+            $this->error($e, 'Ocorreu um erro ao carregar a página de cadastro de reservas');
 
             return redirect()->back();
         }
@@ -86,13 +86,13 @@ class ReserveController extends Controller
 
             Log::info('Reserva cadastrada - ID: ' . $reserve->id . ' - Client ID: ' . $reserve->customer->id . ' - User ID: ' . $reserve->user->id);
 
-            Session::flash('success', 'Reserva criada com sucesso!');
+            $this->success('Reserva criada com sucesso!');
 
             return redirect()->route('reserves.edit', ['reserve' => $reserve->id]);
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao criar reserva');
+            $this->error($e, 'Ocorreu um erro ao criar reserva');
 
             return redirect()->back();
         }
@@ -121,7 +121,7 @@ class ReserveController extends Controller
 
         } catch (\Exception $e) {
             
-            $this->exception($e, 'Ocorreu um erro ao carregar as informações da reserva');
+            $this->error($e, 'Ocorreu um erro ao carregar as informações da reserva');
 
             return redirect()->back();
         }
@@ -148,7 +148,7 @@ class ReserveController extends Controller
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao carregar as informações da reserva');
+            $this->error($e, 'Ocorreu um erro ao carregar as informações da reserva');
 
             return redirect()->back();
         }
@@ -170,13 +170,13 @@ class ReserveController extends Controller
 
             $reserve->update($data);
 
-            Session::flash('success', 'Reserva atualizada com sucesso!');
+            $this->success('Reserva atualizada com sucesso!');
 
             return redirect()->route('reserves.edit', ['reserve' => $id]);
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao atualizar as informações da reserva');
+            $this->error($e, 'Ocorreu um erro ao atualizar as informações da reserva');
 
             return redirect()->back();
         }
@@ -195,13 +195,13 @@ class ReserveController extends Controller
 
             $reserve->delete();
 
-            Session::flash('success', 'Reserva removida com sucesso!');
+            $this->success('Reserva removida com sucesso!');
 
             return redirect()->route('reserves.index');
 
         } catch (\Exception $e) {
             
-            $this->exception($e, 'Ocorreu um erro ao remover reserva');
+            $this->error($e, 'Ocorreu um erro ao remover reserva');
 
             return redirect()->back();
         }
