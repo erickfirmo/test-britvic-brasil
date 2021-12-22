@@ -7,7 +7,7 @@ use Session;
 
 trait ViewAlerts {
 
-    public function exception($exception, $message)
+    public function error($exception, $message)
     {
         Log::error($message . '-' . $exception->getMessage());
 
