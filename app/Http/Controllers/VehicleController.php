@@ -9,12 +9,12 @@ use App\Http\Requests\Vehicles\StoreVehicleRequest;
 use App\Http\Requests\Vehicles\UpdateVehicleRequest;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use App\Http\Traits\ViewException;
+use App\Http\Traits\ViewAlerts;
 use Illuminate\Support\Facades\Log;
 
 class VehicleController extends Controller
 {
-    use ViewException;
+    use ViewAlerts;
 
     protected $vehicle;
 
@@ -40,7 +40,7 @@ class VehicleController extends Controller
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao carregar a listagem de veículos');
+            $this->error($e, 'Ocorreu um erro ao carregar a listagem de veículos');
 
             return redirect()->back();
         }
@@ -59,7 +59,7 @@ class VehicleController extends Controller
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao carregar a página de cadastro de veículos');
+            $this->error($e, 'Ocorreu um erro ao carregar a página de cadastro de veículos');
 
             return redirect()->back();
         }
@@ -78,13 +78,13 @@ class VehicleController extends Controller
 
             $vehicle = $this->vehicle->create($data);
 
-            Session::flash('success', 'Veículo criado com sucesso!');
+            $this->success('Veículo criado com sucesso!');
 
             return redirect()->route('vehicles.edit', ['vehicle' => $vehicle->id]);
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao criar veículo');
+            $this->error($e, 'Ocorreu um erro ao criar veículo');
 
             return redirect()->back();
         }
@@ -150,7 +150,7 @@ class VehicleController extends Controller
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao carregar as informações do veículo');
+            $this->error($e, 'Ocorreu um erro ao carregar as informações do veículo');
 
             return redirect()->back();
         }
@@ -185,7 +185,7 @@ class VehicleController extends Controller
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao carregar as informações do veículo');
+            $this->error($e, 'Ocorreu um erro ao carregar as informações do veículo');
 
             return redirect()->back();
         }
@@ -207,13 +207,13 @@ class VehicleController extends Controller
 
             $vehicle->update($data);
 
-            Session::flash('success', 'Veículo atualizado com sucesso!');
+            $this->success('Veículo atualizado com sucesso!');
 
             return redirect()->route('vehicles.edit', ['vehicle' => $id]);
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao atualizar as informações do veículo');
+            $this->error($e, 'Ocorreu um erro ao atualizar as informações do veículo');
 
             return redirect()->back();
         }
@@ -232,13 +232,13 @@ class VehicleController extends Controller
 
             $vehicle->delete();
 
-            Session::flash('success', 'Veículo removido com sucesso!');
+            $this->success('Veículo removido com sucesso!');
 
             return redirect()->route('vehicles.index');
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao remover veículo');
+            $this->error($e, 'Ocorreu um erro ao remover veículo');
 
             return redirect()->back();
         }
