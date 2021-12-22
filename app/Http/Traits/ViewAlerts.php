@@ -7,15 +7,17 @@ use Session;
 
 trait ViewAlerts {
 
+    public function success($message)
+    {
+        Session::flash('success', $message);
+    }
+
     public function error($exception, $message)
     {
         Log::error($message . '-' . $exception->getMessage());
 
-        if (env('APP_DEBUG'))
-        {
-            Session::flash('danger', $message . '-' .$exception->getMessage());
-        } else {
-            Session::flash('danger', "$message!");
-        }
+        $message = env('APP_DEBUG') ? $message . '-' .$exception->getMessage() : $message; 
+
+        Session::flash('danger', "$message!");
     }
 }
