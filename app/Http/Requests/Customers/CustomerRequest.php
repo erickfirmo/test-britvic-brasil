@@ -43,9 +43,9 @@ class CustomerRequest extends FormRequest
     public function attributes()
     {
         return [
-            'name' => __('validation.customers.attributes.name'),
-            'document_number' => __('validation.customers.attributes.document_number'),
-            'dob' => __('validation.customers.attributes.dob')
+            'name' => __('validation.attributes.customers.name'),
+            'document_number' => __('validation.attributes.customers.document_number'),
+            'dob' => __('validation.attributes.customers.dob')
         ];
     }
 }
