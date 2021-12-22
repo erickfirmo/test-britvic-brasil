@@ -135,11 +135,6 @@ return [
 
     
     'customers' => [
-        'attributes' => [
-            'name' => 'nome',
-            'document_number' => 'CPF',
-            'dob' => 'data de nascimento',
-        ],
         'messages' => [
             'document_number' => [
                 'invalid_format' => 'O formato do :attribute é inválido.',
@@ -158,12 +153,6 @@ return [
     ],
 
     'vehicles' => [
-        'attributes' => [
-            'model' => 'modelo',
-            'brand' => 'marca',
-            'year' => 'ano',
-            'plate' => 'placa',
-        ],
         'messages' => [
             'document_number' => [
                 'invalid_format' => 'O formato do :attribute é inválido.',
@@ -182,12 +171,6 @@ return [
     ],
 
     'reserves' => [
-        'attributes' => [
-            'model' => 'modelo',
-            'brand' => 'marca',
-            'year' => 'ano',
-            'plate' => 'placa',
-        ],
         'messages' => [
             'vehicle_id' => [
                 'required' => 'O campo :attribute é obrigatório.',
@@ -263,18 +246,18 @@ return [
         'password_confirmation' => 'confirmação da senha',
         'current_password' => 'senha atual',
 
-        'customer' => [
+        'customers' => [
             'name' => 'nome',
             'document_number' => 'CPF',
             'dob' => 'data de nascimento',
         ],
-        'vehicle' => [
+        'vehicles' => [
             'model' => 'modelo',
             'brand' => 'marca',
             'year' => 'ano',
             'plate' => 'placa',
         ],
-        'reserve' => [
+        'reserves' => [
             'vehicle_id' => 'veículo',
             'customer_id' => 'cliente',
             'date' => 'data',
