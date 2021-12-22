@@ -44,7 +44,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">
+                                <td colspan="6">
                                     <p class="text-center m-0">Nenhuma reserva encontrada</p>
                                 </td>
                             <tr>
