@@ -7,13 +7,12 @@ use App\Models\Customer;
 use Session;
 use App\Http\Requests\Customers\StoreCustomerRequest;
 use App\Http\Requests\Customers\UpdateCustomerRequest;
-use App\Http\Traits\ViewException;
+use App\Http\Traits\ViewAlerts;
 use Illuminate\Support\Facades\Log;
 
 class CustomerController extends Controller
 {
-
-    use ViewException;
+    use ViewAlerts;
     
     protected $customer;
 
@@ -39,7 +38,7 @@ class CustomerController extends Controller
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao carregar a listagem de clientes!');
+            $this->error($e, 'Ocorreu um erro ao carregar a listagem de clientes!');
 
             return redirect()->back();
         }
@@ -58,7 +57,7 @@ class CustomerController extends Controller
 
         } catch (\Exception $e) {
             
-            $this->exception($e, 'Ocorreu um erro ao carregar a página de cadastro de clientes');
+            $this->error($e, 'Ocorreu um erro ao carregar a página de cadastro de clientes');
 
             return redirect()->back();
         }
@@ -77,13 +76,13 @@ class CustomerController extends Controller
 
             $customer = $this->customer->create($data);
 
-            Session::flash('success', 'Cliente criado com sucesso!');
+            $this->success('Cliente criado com sucesso!');
 
             return redirect()->route('customers.edit', ['customer' => $customer->id]);
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao criar cliente');
+            $this->error($e, 'Ocorreu um erro ao criar cliente');
 
             return redirect()->back();
         }
@@ -106,7 +105,7 @@ class CustomerController extends Controller
 
         } catch (\Exception $e) {
             
-            $this->exception($e, 'Ocorreu um erro ao carregar as informações do cliente!');
+            $this->error($e, 'Ocorreu um erro ao carregar as informações do cliente!');
 
             return redirect()->back();
         }
@@ -127,7 +126,7 @@ class CustomerController extends Controller
 
         } catch (\Exception $e) {
             
-            $this->exception($e, 'Ocorreu um erro ao carregar as informações do cliente');
+            $this->error($e, 'Ocorreu um erro ao carregar as informações do cliente');
 
             return redirect()->back();
         }
@@ -149,7 +148,7 @@ class CustomerController extends Controller
 
             $customer->update($data);
 
-            Session::flash('success', 'Cliente atualizado com sucesso!');
+            $this->success('Cliente atualizado com sucesso!');
 
             return redirect()->route('customers.edit', ['customer' => $id]);
 
@@ -164,7 +163,7 @@ class CustomerController extends Controller
             return redirect()->back();
 
 
-            $this->exception($e, 'Ocorreu um erro ao carregar as informações do cliente');
+            $this->error($e, 'Ocorreu um erro ao carregar as informações do cliente');
 
             return redirect()->back();
         }
@@ -183,13 +182,13 @@ class CustomerController extends Controller
 
             $customer->delete();
 
-            Session::flash('success', 'Cliente removido com sucesso!');
+            $this->success('Cliente removido com sucesso!');
 
             return redirect()->route('customers.index');
 
         } catch (\Exception $e) {
 
-            $this->exception($e, 'Ocorreu um erro ao remover cliente:');
+            $this->error($e, 'Ocorreu um erro ao remover cliente:');
 
             return redirect()->back();
         }
