@@ -33,7 +33,7 @@ class ReserveRequest extends FormRequest
             'date.required' => __('validation.reserves.messages.date.required'),
             'date.date' => __('validation.reserves.messages.date.date'),
             'date.date_format' => __('validation.reserves.messages.date.date_format'),
-            'date.after' => __('validation.reserves.messages.date.after'),
+            'date.after' => __('validation.reserves.messages.date.after.today'),
             'description.string' => __('validation.reserves.messages.description.string'),
             'description.max' => __('validation.reserves.messages.description.max'),
         ];
@@ -47,10 +47,10 @@ class ReserveRequest extends FormRequest
     public function attributes()
     {
         return [
-            'vehicle_id' => __('validation.reserves.attributes.vehicle_id'),
-            'customer_id' => __('validation.reserves.attributes.customer_id'),
-            'date' => __('validation.reserves.attributes.date'),
-            'description' => __('validation.reserves.attributes.description'),
+            'vehicle_id' => __('validation.attributes.reserves.vehicle_id'),
+            'customer_id' => __('validation.attributes.reserves.customer_id'),
+            'date' => __('validation.attributes.reserves.date'),
+            'description' => __('validation.attributes.reserves.description'),
         ];
     }
 }
