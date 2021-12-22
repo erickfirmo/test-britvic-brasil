@@ -5,7 +5,7 @@ namespace App\Http\Traits;
 use Illuminate\Support\Facades\Log;
 use Session;
 
-trait ViewException {
+trait ViewAlerts {
 
     public function exception($exception, $message)
     {
