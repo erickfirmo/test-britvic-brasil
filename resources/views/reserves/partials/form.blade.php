@@ -61,8 +61,8 @@
 
 <div class="row mb-0">
     <div class="col-md-6 offset-md-4">
-        <a href="{{ url()->previous() }}" type="button" class="btn btn-light">
-            {{ __('Cancelar') }}
+        <a href="{{ route('reserves.index') }}" type="button" class="btn btn-light">
+            {{ __('Voltar') }}
         </a>
         @if(!isset($disabled))  
         <button type="submit" class="btn btn-primary">
