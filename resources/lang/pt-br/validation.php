@@ -32,6 +32,7 @@ return [
     ],
     'boolean'              => 'O campo :attribute deve ser verdadeiro ou falso.',
     'confirmed'            => 'O campo :attribute de confirmação não confere.',
+    'current_password'     => 'The password is incorrect.',
     'date'                 => 'O campo :attribute não é uma data válida.',
     'date_equals'          => 'O campo :attribute deve ser uma data igual a :date.',
     'date_format'          => 'O campo :attribute não corresponde ao formato :format.',
@@ -109,6 +110,7 @@ return [
     'prohibited_if'        => 'O campo :attribute é proibido quando :other for :value.',
     'prohibited_unless'    => 'O campo :attribute é proibido exceto quando :other for :values.',
     'same'                 => 'Os campos :attribute e :other devem corresponder.',
+    'prohibits'            => 'The :attribute field prohibits :other from being present.',
     'size'                 => [
         'numeric' => 'O campo :attribute deve ser :size.',
         'file'    => 'O campo :attribute deve ser :size kilobytes.',
