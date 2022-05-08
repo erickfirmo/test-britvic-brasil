@@ -162,7 +162,7 @@ class VehicleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         try {
             $request->validate([
@@ -180,6 +180,14 @@ class VehicleController extends Controller
             $nextMonth = $nextMonth->addMonths(2)->format('m-Y');
 
             $vehicle = $this->vehicle->findOrFail($id);
+
+            $reserves =  collect($vehicle->reserves)->mapWithKeys(function($reserve, $key) {
+                return [$reserve->date->format('Y-m-d') => $reserve];
+            });
+
+            $reserveDays = collect($dateRange)->mapWithKeys(function($date, $key) use ($reserves) {
+                return [$date->format('d/m/Y') => ($reserves->has($date->format('Y-m-d')) ? $reserves[$date->format('Y-m-d')] : null)];
+            });
 
             return view('vehicles.edit', compact('vehicle', 'reserveDays', 'month', 'lastMonth', 'nextMonth'));
 
