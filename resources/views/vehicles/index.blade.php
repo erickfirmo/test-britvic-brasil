@@ -26,6 +26,7 @@
                                 <th scope="col">Marca</th>
                                 <th scope="col">Ano</th>
                                 <th scope="col">Placa</th>
+                                <th scope="col">Reservas</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
@@ -37,6 +38,7 @@
                                 <td>{{ $vehicle->brand }}</td>
                                 <td>{{ $vehicle->year }}</td>
                                 <td>{{ $vehicle->plate }}</td>
+                                <td>{{ $vehicle->reserves()->count() }}</td>
                                 <td>
                                     <a href="{{ route('vehicles.show', $vehicle->id) }}" class="edit btn btn-dark btn-sm"><i class="fas fa-eye"></i>&nbsp;Visualizar</a>
                                     <a href="{{ route('vehicles.edit', $vehicle->id) }}" class="edit btn btn-primary btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
