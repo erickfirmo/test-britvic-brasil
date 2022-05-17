@@ -14,7 +14,8 @@ class ReserveFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'date' => $this->faker->dateTimeBetween('now', '2023-01-01')->format('Y-m-d'),
+            'description' => $this->faker->sentence,
         ];
     }
 }
