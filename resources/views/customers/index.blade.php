@@ -25,6 +25,7 @@
                                 <th scope="col">Nome</th>
                                 <th scope="col">CPF</th>
                                 <th scope="col">Data de Nascimento</th>
+                                <th scope="col">Reservas</th>
                                 <th scope="col">Ações</th>
                             </tr>
                         </thead>
@@ -35,6 +36,7 @@
                                 <td>{{ $customer->name }}</td>
                                 <td>{{ $customer->getDocumentNumber() }}</td>
                                 <td>{{ $customer->getDayOfBirthday() }}</td>
+                                <td>{{ $customer->reserves()->count() }}</td>
                                 <td>
                                     <a href="{{ route('customers.show', $customer->id) }}" class="edit btn btn-dark btn-sm"><i class="fas fa-eye"></i>&nbsp;Visualizar</a>
                                     <a href="{{ route('customers.edit', $customer->id) }}" class="edit btn btn-primary btn-sm text-light"><i class="fas fa-edit"></i>&nbsp;Editar</a>
