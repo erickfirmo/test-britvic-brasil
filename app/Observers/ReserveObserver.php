@@ -15,7 +15,7 @@ class ReserveObserver
      */
     public function creating(Reserve $reserve)
     {
-        $reserve->user_id = Auth::id();
+        $reserve->user_id = Auth::id() ?? 1;
     }
     
     /**
@@ -26,6 +26,6 @@ class ReserveObserver
      */
     public function updating(Reserve $reserve)
     {
-        $reserve->user_id = Auth::id();
+        $reserve->user_id = Auth::id() ?? 1;
     }
 }
