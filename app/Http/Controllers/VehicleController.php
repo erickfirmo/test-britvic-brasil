@@ -141,7 +141,7 @@ class VehicleController extends Controller
             });
 
             $reserveDays = collect($dateRange)->mapWithKeys(function($date, $key) use ($reserves) {
-                return [$date->format('d/m/Y') => ($reserves->has($date->format('Y-m-d')) ? $reserves[$date->format('Y-m-d')] : null)];
+                return [$date->format('Y-m-d') => $reserves->has($date->format('Y-m-d')) ? $reserves[$date->format('Y-m-d')] : null];
             });
 
             $disabled = true;
@@ -186,7 +186,7 @@ class VehicleController extends Controller
             });
 
             $reserveDays = collect($dateRange)->mapWithKeys(function($date, $key) use ($reserves) {
-                return [$date->format('d/m/Y') => ($reserves->has($date->format('Y-m-d')) ? $reserves[$date->format('Y-m-d')] : null)];
+                return [$date->format('Y-m-d') => $reserves->has($date->format('Y-m-d')) ? $reserves[$date->format('Y-m-d')] : null];
             });
 
             return view('vehicles.edit', compact('vehicle', 'reserveDays', 'month', 'lastMonth', 'nextMonth'));
