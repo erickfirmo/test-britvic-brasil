@@ -149,7 +149,7 @@ return [
             ],
             'dob' => [
                 'before' => [
-                    'today' => 'A :attribute deve ser uma data anterior a data de hoje.'
+                    'today' => 'A :attribute .'
                 ]
             ]
         ]
@@ -167,7 +167,7 @@ return [
             ],
             'dob' => [
                 'before' => [
-                    'today' => 'A :attribute deve ser uma data anterior a data de hoje.'
+                    'today' => 'A :attribute deve ser depois de hoje.'
                 ]
             ]
         ]
@@ -190,7 +190,7 @@ return [
                 'date' => 'O campo :attribute não é uma data válida.',
                 'date_format' => 'O campo :attribute não corresponde ao formato :format.',
                 'after' => [
-                    'today' => 'A :attribute deve ser uma data anterior a data de hoje.'
+                    'today' => 'A :attribute deve ser depois de hoje.'
                 ]
             ],
             'description' => [
