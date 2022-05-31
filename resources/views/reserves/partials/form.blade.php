@@ -4,7 +4,7 @@
 
     <div class="col-md-6">
 
-        {!! Form::select('vehicle_id', ['' => 'Selecione um veículo'] + $vehicles ?? null, $reserve->vehicle->id ?? null, ['class' => 'form-control'. ($errors->has('vehicle_id') ? ' is-invalid' : null), 'id' => 'vehicle_id',  'autofocus' => 'autofocus', 'autocomplete' => 'vehicle_id', 'disabled' => $disabled ?? null]) !!}
+        {!! Form::select('vehicle_id', ['' => 'Selecione um veículo'] + $vehicles ?? null, ($reserve->vehicle->id ?? old('vehicle_id')) ?? app('request')->input('vehicle'), ['class' => 'form-control'. ($errors->has('vehicle_id') ? ' is-invalid' : null), 'id' => 'vehicle_id',  'autofocus' => 'autofocus', 'autocomplete' => 'vehicle_id', 'disabled' => $disabled ?? null]) !!}
 
         @error("vehicle_id")
             <span class="invalid-feedback" role="alert">
@@ -34,7 +34,7 @@
 
     <div class="col-md-6">
 
-        {!! Form::date('date', $reserve->date ?? old('date'), ['class' => 'form-control'. ($errors->has('date') ? ' is-invalid' : null), 'id' => 'date',  'autofocus' => 'autofocus', 'autocomplete' => 'date', 'disabled' => $disabled ?? null]) !!}
+        {!! Form::date('date', ($reserve->date ?? old('date')) ?? app('request')->input('date'), ['class' => 'form-control'. ($errors->has('date') ? ' is-invalid' : null), 'id' => 'date',  'autofocus' => 'autofocus', 'autocomplete' => 'date', 'disabled' => $disabled ?? null]) !!}
 
         @error("date")
             <span class="invalid-feedback" role="alert">
@@ -61,9 +61,17 @@
 
 <div class="row mb-0">
     <div class="col-md-6 offset-md-4">
-        <a href="{{ route('reserves.index') }}" type="button" class="btn btn-light">
-            {{ __('Voltar') }}
-        </a>
+        @if (app('request')->input('vehicle') !== null)
+        <a href="{{ route('vehicles.show', ['vehicle' => app('request')->input('vehicle')]) }}" type="button" class="btn btn-light">
+                {{ __('Voltar') }}
+            </a>
+        @else
+            
+            <a href="{{ route('reserves.index') }}" type="button" class="btn btn-light">
+                {{ __('Voltar') }}
+            </a>
+        @endif
+
         @if(!isset($disabled))  
         <button type="submit" class="btn btn-primary">
             {{ __('Salvar') }}
