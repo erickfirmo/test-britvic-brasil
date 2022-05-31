@@ -53,7 +53,7 @@
                                         <button data-bs-target="#removeModal" data-bs-toggle="modal" data-url="{{ route('reserves.destroy', $reserve->id) }}" class="delete btn btn-danger btn-sm remove-button"><i class="fas fa-trash-alt"></i>&nbsp;Excluir</a>
                                     </td>
                                 @else
-                                    <td>{{ date('m/d/Y', strtotime($date)) }}</td>
+                                    <td>{{ date('d/m/Y', strtotime($date)) }}</td>
                                     <td colspan="2">Disponível</td>
                                     <td>
                                         <a href="{{ route('reserves.create', ['vehicle' => $vehicle->id, 'date' => $date]) }}" class="edit btn btn-dark btn-sm"><i class="fas fa-eye"></i>&nbsp;Reservar</a>
