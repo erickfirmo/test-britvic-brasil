@@ -15,6 +15,34 @@
             <h3>Veículos</h3>
             <a href="{{ route('vehicles.create') }}" class="btn btn-primary text-light mb-4"><i class="fas fa-plus"></i>&nbsp;Novo</a>
 
+            <div class="card mb-4">
+                <div class="card-header py-3">
+                    <form action="{{ route('vehicles.index') }}" method="get">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="model" value="{{ app('request')->input('model') }}" placeholder="Nome/Modelo">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="brand" value="{{ app('request')->input('brand') }}" placeholder="Marca">
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" name="plate" value="{{ app('request')->input('plate') }}" placeholder="Placa">
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-dark">
+                                    Buscar
+                                    <i class="fas fa-search"></i>
+                                </button>
+                                <a class="btn btn-dark" href="{{ route('vehicles.index') }}">
+                                    Limpar
+                                    <i class="fas fa-sync-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
             <div class="card">
                 <div class="card-header">{{ __('Todos os Veículos') }}</div>
                 <div class="card-body">
