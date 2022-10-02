@@ -7,6 +7,7 @@ use App\Models\Vehicle;
 use Session;
 use App\Http\Requests\Vehicles\StoreVehicleRequest;
 use App\Http\Requests\Vehicles\UpdateVehicleRequest;
+use App\Interfaces\VehicleRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Http\Traits\ViewAlerts;
@@ -16,13 +17,17 @@ class VehicleController extends Controller
 {
     use ViewAlerts;
 
+    private VehicleRepositoryInterface $vehicleRepository;
+
     protected $vehicle;
 
-    public function __construct(Vehicle $vehicle)
+    public function __construct(Vehicle $vehicle, VehicleRepositoryInterface $vehicleRepository)
     {
         $this->middleware('auth');
 
         $this->vehicle = $vehicle;
+
+        $this->vehicleRepository = $vehicleRepository;
     }
 
     /**
@@ -30,11 +35,13 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         try {
-
-            $vehicles = $this->vehicle->orderBy('id', 'desc')->paginate(20);
+            
+            $vehicles = $this->vehicleRepository->filter($request->all())
+                                                ->orderBy('id', 'desc')
+                                                ->paginate(20);
 
             return view('vehicles.index', compact('vehicles'));
 
